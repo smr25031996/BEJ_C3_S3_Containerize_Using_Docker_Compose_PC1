@@ -50,7 +50,7 @@ public class UserController {
         } catch (UserNotFoundException e) {
             throw new UserNotFoundException();
         } catch (Exception e) {
-            return new ResponseEntity<>("logIn UnSuccessful", HttpStatus.BAD_GATEWAY);
+            return new ResponseEntity<>("logIn UnSuccessful", HttpStatus.ACCEPTED);
         }
     }
 

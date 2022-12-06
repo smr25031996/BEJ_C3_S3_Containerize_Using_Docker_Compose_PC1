@@ -1,32 +1,28 @@
-version: '3.9'
+version: "1.0"
 services:
-  authentication-service:
-    image: authentication_image
-    container_name: authentication
-    build: ./
-    restart: always
-    networks:
-      - mynetwork
-    ports:
-      - 8085:8085
-    depends_on:
-      - mysqlService
-
-
-  mysqlService:
+  mysqlservice:
     image: mysql:latest
-    container_name: mysqlService
-    networks:
-      - mynetwork
     ports:
-      - 3307:3307
+      - 3306:3306
+    container_name: mysqlcontainer1
+    networks:
+      - mynetwork1
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: root
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-
-
+  restservice:
+    image: restimg1
+    container_name: restcontainer1
+    build: ./
+    restart: always
+    networks:
+      - mynetwork1
+    ports:
+      - 8085:8085
+    depends_on:
+      - mysqlservice
 networks:
-  mynetwork:
+  mynetwork1:
     driver: bridge
